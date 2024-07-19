@@ -1,0 +1,4 @@
+name = "Peregrin"
+uuid = "3bd7047b-ee54-449e-9275-da95f4ffcfeb"
+authors = ["Patrick Armstrong <patrick.armstrong@anu.edu.au>"]
+version = "0.1.0"

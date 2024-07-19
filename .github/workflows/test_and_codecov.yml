@@ -9,7 +9,6 @@ on:
   pull_request:
     branches:
       - main
-    types: [opened, synchornize, closed]
     paths-ignore:
       - 'docs/**'
   workflow_dispatch:
@@ -22,7 +21,6 @@ concurrency:
 
 jobs:
   test:
-    if: (!(github.event.action == 'closed' && github.event.pull_request.merged != true))
     name: Julia ${{ matrix.julia-version }} - ${{ matrix.os }} - ${{ matrix.julia-arch }} - ${{ github.event_name }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 60

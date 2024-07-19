@@ -1,0 +1,19 @@
+name: Delete branch
+on: delete
+jobs:
+  delete_workflow_runs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete workflow runs for deleted branch
+        id: delete-workflow-runs-for-deleted-branch
+        if: github.event.ref_type == 'branch'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_BRANCH: ${{ github.event.ref }}
+          GITHUB_REPOSITORY_URL: ${{ github.event.repository.url }}
+        run: |
+          echo "Deleting workflow runs for deleted branch ${GITHUB_BRANCH}"
+          for id in $(curl -s -H "Authorization: Bearer ${GITHUB_TOKEN}" ${GITHUB_REPOSITORY_URL}/actions/runs?branch=${GITHUB_BRANCH} | jq '.workflow_runs | .[] |  .id'); do
+            curl -s -X DELETE -H "Authorization: Bearer ${GITHUB_TOKEN}" ${GITHUB_REPOSITORY_URL}/actions/runs/${id}
+            echo "Deleted workflow run ${id}"
+          done

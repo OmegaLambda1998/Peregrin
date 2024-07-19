@@ -1,15 +1,25 @@
 using Documenter
+
+# Allow using local, non published, packages
+using Pkg
+push!(LOAD_PATH, "../src/")
+Pkg.develop(path = abspath(joinpath(@__DIR__, "../")))
 using Peregrin
 
-makedocs(
-    sitename = "Peregrin",
-    format = Documenter.HTML(),
-    modules = [Peregrin]
+DocMeta.setdocmeta!(
+    Peregrin,
+    :DocTestSetup,
+    :(using Peregrin);
+    recursive = true,
 )
 
-# Documenter can also automatically deploy documentation to gh-pages.
-# See "Hosting Documentation" and deploydocs() in the Documenter manual
-# for more information.
-#=deploydocs(
-    repo = "<repository url>"
-)=#
+makedocs(
+    sitename = "Peregrin Documentation",
+    modules = [Peregrin],
+    pages = [
+        "Peregrin" => "index.md",
+    ],
+    format = Documenter.HTML(assets = []),
+)
+
+deploydocs(repo = "github.com/OmegaLambda1998/Peregrin.git")

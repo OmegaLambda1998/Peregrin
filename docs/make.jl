@@ -6,19 +6,12 @@ push!(LOAD_PATH, "../src/")
 Pkg.develop(path = abspath(joinpath(@__DIR__, "../")))
 using Peregrin
 
-DocMeta.setdocmeta!(
-    Peregrin,
-    :DocTestSetup,
-    :(using Peregrin);
-    recursive = true,
-)
+DocMeta.setdocmeta!(Peregrin, :DocTestSetup, :(using Peregrin); recursive = true)
 
 makedocs(
     sitename = "Peregrin Documentation",
     modules = [Peregrin],
-    pages = [
-        "Peregrin" => "index.md",
-    ],
+    pages = ["Peregrin" => "index.md"],
     format = Documenter.HTML(assets = []),
 )
 
